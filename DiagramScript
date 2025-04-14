@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Here I'm loadinf in the csv
+file_path = "/Users/jason/Desktop/College/ATU/Algorithmic Thinking/BenchmarkTester/sorting_benchmark_results.csv"
+df = pd.read_csv(file_path)
+
+#melting the data for plot
+df_melted = df.melt(id_vars="Size", var_name="Algorithm", value_name="Time (ms)")
+
+#Linear scale plot
+plt.figure(figsize=(12, 6))
+sns.lineplot(data=df_melted, x="Size", y="Time (ms)", hue="Algorithm", marker='o')
+plt.title("Sorting Algorithm Benchmark Results (Linear Scale)")
+plt.xlabel("Input Size")
+plt.ylabel("Average Execution Time (ms)")
+plt.grid(True)
+plt.tight_layout()
+plt.legend(title="Algorithm")
+plt.show()
+
+#Log plot
+plt.figure(figsize=(12, 6))
+sns.lineplot(data=df_melted, x="Size", y="Time (ms)", hue="Algorithm", marker='o')
+plt.yscale("log")
+plt.title("Sorting Algorithm Benchmark Results (Log Scale)")
+plt.xlabel("Input Size")
+plt.ylabel("Average Execution Time (ms, log scale)")
+plt.grid(True, which="both", ls="--")
+plt.tight_layout()
+plt.legend(title="Algorithm")
+plt.show()
